@@ -3,6 +3,14 @@
 }
 
 .post img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #ff5b36;
+}
+
+.comment {
+    display: flex;
+    flex-flow: column;
+    align-self: center;
 }
