@@ -23,5 +23,6 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #eb7350;
+  background: linear-gradient(128deg, #fa2f2f 0%, #ff5b36 90%);
+  color: #fff;
 }
