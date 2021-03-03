@@ -1,0 +1,14 @@
+/* .capture {
+  background-image: url('https://icocnews.ru/wp-content/uploads/2015/09/priroda.jpg');
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+  
+
+.profileInfo img {
+  max-width: 1200px;
+  width: 100%;
+}
+  
