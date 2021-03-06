@@ -1,0 +1,31 @@
+.friends {
+  margin-top: 30px;
+  padding-left: 72px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.friends h3 {
+  font-size: 24px;
+  font-weight: normal;
+  flex-basis: 100%;
+  margin-bottom: 15px;
+}
+
+.friend {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.friendImg {
+  width: 40px;
+  height: 40px;
+  background-color: #ffa500;
+  border-radius: 50%;
+}
+
+.friendName {
+  font-size: 18px;
+}
