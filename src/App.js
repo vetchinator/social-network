@@ -15,7 +15,7 @@ const App = (props) => {
   return (
     <div className="container">
       <Header />
-      <Navbar state={props.state.sidebar} />
+      <Navbar state={props.state.sidebarPage} />
       <div className="body__wrapper">
         <Route
           path="/profile"
