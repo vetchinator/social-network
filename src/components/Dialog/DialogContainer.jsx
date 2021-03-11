@@ -4,14 +4,13 @@ import {
     updateNewMessageBodyCreator,
 } from "../../redux/dialogs-reducer";
 import Dialog from "./Dialog";
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
-    }
-}
+        dialogsPage: state.dialogsPage,
+    };
+};
 
 let mapDispatchToProps = (dispatch) => {
     return {
