@@ -15,7 +15,7 @@ const MyPosts = (props) => {
     props.updateNewPostText(text);
   };
 
-  let postElements = props.posts.map((p) => (
+  let postElements = props.profilePage.posts.map((p) => (
     <Post message={p.message} countLike={p.likesCount} />
   ));
 
