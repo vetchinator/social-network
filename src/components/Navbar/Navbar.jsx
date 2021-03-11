@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Friends from "./Friends/Friends";
+// import Friends from "./Friends/Friends";
 import s from './Navbar.module.css'
 
 const Navbar = (props) => {
   
-  let state = props.store.getState().sidebar;
+  // let state = props.store.getState().sidebar;
 
   return (
     <nav className={s.nav}>
@@ -26,7 +26,7 @@ const Navbar = (props) => {
           <NavLink to="/settings">Settings</NavLink>
         </li>
       </ul>
-      <Friends friends={state.friends}/>
+      {/* <Friends friends={state.friends}/> */}
     </nav>
   );
 };
