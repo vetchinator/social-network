@@ -12,10 +12,11 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
 const App = (props) => {
+  debugger;
   return (
     <div className="container">
       <Header />
-      <Navbar state={props.state.sidebarPage} />
+      <Navbar state={props.state.sidebar} />
       <div className="body__wrapper">
         <Route
           path="/profile"
