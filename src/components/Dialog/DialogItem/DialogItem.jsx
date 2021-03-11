@@ -9,7 +9,7 @@ const DialogItem = (props) => {
     <NavLink to={path} activeClassName={s.item + " " + s.active}>
       <div className={s.item}>
         <img
-          src="https://www.iconsdb.com/icons/preview/orange/user-xxl.png"
+          src="/user.png"
           alt="avatar"
         />
         <p>{props.name}</p>

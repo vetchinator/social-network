@@ -5,7 +5,7 @@ const Post = (props) => {
   return (
     <div className={s.post}>
       <img
-        src="https://www.iconsdb.com/icons/preview/orange/user-xxl.png"
+        src="/user.png"
         alt="logo"
       />
       <div className={s.comment}>
