@@ -1,0 +1,15 @@
+.users {
+    display: flex;
+    max-width: 600px;
+    flex-flow: row wrap;
+    margin: -5px 15px;
+}
+
+.user  {
+    margin: 15px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+}

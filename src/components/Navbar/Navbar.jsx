@@ -24,6 +24,9 @@ const Navbar = (props) => {
                 <li>
                     <NavLink to="/settings">Settings</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/users">Find Users</NavLink>
+                </li>
             </ul>
             {/* <Friends friends={state.friends}/> */}
         </nav>
