@@ -15,7 +15,7 @@ const MyPosts = (props) => {
     };
 
     let postElements = props.profilePage.posts.map((p) => (
-        <Post message={p.message} countLike={p.likesCount} />
+        <Post message={p.message} countLike={p.likesCount} key={p.id}/>
     ));
 
     return (
