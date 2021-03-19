@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 import "./App.css";
 
 //Components
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -11,11 +10,12 @@ import Settings from "./components/Settings/Settings";
 import DialogContainer from "./components/Dialog/DialogContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App = (props) => {
     return (
         <div className="container">
-            <Header />
+            <HeaderContainer />
             <Navbar store={props.store} />
             <div className="body__wrapper">
                 <Route
