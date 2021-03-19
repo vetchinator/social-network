@@ -1,7 +1,8 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 
-const Header = () => {
+const Header = (props) => {
     return (
         <header className={s.header}>
             <div className={s.header__wrapper}>
@@ -10,6 +11,9 @@ const Header = () => {
                     src="https://img2.pngio.com/logo-png-images-download-150000-logo-png-resources-with-logo-download-png-360_360.png"
                     alt="logo"
                 />
+                <div className={s.blockLogin}>
+                    {props.isAuthenticated ? props.login : <NavLink to='/login'>Login</NavLink> }
+                </div>
             </div>
         </header>
     );
