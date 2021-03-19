@@ -22,8 +22,8 @@ class UsersAPIContainer extends React.Component {
             .then((response) => {
                 this.props.toogleIsFetching(false);
                 this.props.setUsers(response.data.items);
-                if (response.data.totalCount > 100) {
-                    response.data.totalCount = 100;
+                if (response.data.totalCount > 800) {
+                    response.data.totalCount = 800;
                 }
                 this.props.setTotalUsersCount(response.data.totalCount);
             });
