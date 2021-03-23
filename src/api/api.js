@@ -24,3 +24,11 @@ export const userAPI = {
         return instance.post(`follow/${userId}`).then((response) => response.data);
     },
 };
+
+export const authAPI = {
+    me() {
+        return instance.get('auth/me', {
+            withCredentials: true
+        })
+    }
+}
