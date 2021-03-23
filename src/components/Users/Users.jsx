@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { userAPI } from '../../api/api';
 
 const Users = (props) => {
+    
     let pageCount = Math.ceil(props.totalCountUsers / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
@@ -49,11 +50,14 @@ const Users = (props) => {
                         <div>{"user.location.city"}</div>
                         {user.followed ? (
                             <button
+                                disabled={props.followingInProgress.some(id => id === user.id)}
                                 onClick={() => {
+                                    props.toogleFollowingProgress(true, user.id);
                                     userAPI.unfollowUser(user.id)
                                         .then((data) => {
                                             if (data.resultCode === 0 ) {
                                                 props.unfollow(user.id);
+                                                props.toogleFollowingProgress(false, user.id);
                                             }
                                     });
                                     
@@ -62,11 +66,14 @@ const Users = (props) => {
                             </button>
                         ) : (
                             <button
+                                disabled={props.followingInProgress.some(id => id === user.id)}
                                 onClick={() => {
+                                    props.toogleFollowingProgress(true, user.id);
                                     userAPI.followUser(user.id)
                                         .then((data) => {
                                             if (data.resultCode === 0 ) {
                                                 props.follow(user.id);
+                                                props.toogleFollowingProgress(false, user.id);
                                             }
                                     });
                                     
