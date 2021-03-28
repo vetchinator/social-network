@@ -108,7 +108,7 @@ export const unfollow = (userId) => {
         dispatch(toogleFollowingProgress(true, userId));
         userAPI.unfollowUser(userId)
             .then((data) => {
-                if (data.resultCode === 0 ) {
+                if (data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId));
                     dispatch(toogleFollowingProgress(false, userId));
                 }
