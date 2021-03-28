@@ -11,22 +11,16 @@ import DialogContainer from "./components/Dialog/DialogContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from './components/Login/Login';
+import Login from "./components/Login/Login";
 
 const App = (props) => {
     return (
         <div className="container">
             <HeaderContainer />
-            <Navbar store={props.store} />
+            <Navbar />
             <div className="body__wrapper">
-                <Route
-                    path="/profile/:userId?"
-                    render={() => <ProfileContainer />}
-                />
-                <Route
-                    path="/dialog"
-                    render={() => <DialogContainer />}
-                />
+                <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                <Route path="/dialog" render={() => <DialogContainer />} />
                 <Route path="/news" render={() => <News />} />
                 <Route path="/music" render={() => <Music />} />
                 <Route path="/settings" render={() => <Settings />} />
