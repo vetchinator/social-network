@@ -2,6 +2,24 @@ import React from "react";
 import s from "./Dialog.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import { useForm } from "react-hook-form";
+
+const AddMessageForm = (props) => {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        props.sendMessage(data.addMessage);
+    };
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <textarea type="text" name="addMessage"  ref={register}></textarea>
+            </div>
+            <div>
+                <button type="submit">Send Message</button>
+            </div>
+        </form>
+    );
+};
 
 const Dialog = (props) => {
     let dialogElements = props.dialogsPage.dialogs.map((d) => (
@@ -12,31 +30,13 @@ const Dialog = (props) => {
         <Message message={m.message} key={m.id} />
     ));
 
-    let newMessageElement = React.createRef();
-
-    let onAddNewMessage = () => {
-        props.sendMessage();
-    };
-
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value;
-        props.updateNewMessageBody(text);
-    };
-
     return (
         <div className={s.dialog}>
             <div className={s.list}>{dialogElements}</div>
             <div className={s.messages}>
                 {messageElements}
                 <div>
-                    <textarea
-                        onChange={onMessageChange}
-                        ref={newMessageElement}
-                        value={props.dialogsPage.newMessageText}
-                    ></textarea>
-                </div>
-                <div>
-                    <button onClick={onAddNewMessage}>Add Post</button>
+                    <AddMessageForm sendMessage={props.sendMessage}/>
                 </div>
             </div>
         </div>
