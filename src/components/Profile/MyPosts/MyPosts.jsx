@@ -1,21 +1,29 @@
 import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import { useForm } from "react-hook-form";
+
+const AddPostForm = (props) => {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        props.addPost(data.addPostText);
+    };
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <textarea type="text" name="addPostText" ref={register}></textarea>
+            </div>
+            <div>
+                <button type="submit">Send post</button>
+            </div>
+        </form>
+    );
+};
 
 const MyPosts = (props) => {
-    let newPostElement = React.createRef();
-
-    let onAddPost = () => {
-        props.addPost();
-    };
-
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    };
-
     let postElements = props.profilePage.posts.map((p) => (
-        <Post message={p.message} countLike={p.likesCount} key={p.id}/>
+        <Post message={p.message} countLike={p.likesCount} key={p.id} />
     ));
 
     return (
@@ -23,14 +31,7 @@ const MyPosts = (props) => {
             <h2 className={s.title}>My Posts</h2>
             <div className={s.newPost}>
                 <div>
-                    <textarea
-                        ref={newPostElement}
-                        onChange={onPostChange}
-                        value={props.profilePage.newPostText}
-                    ></textarea>
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add Post</button>
+                    <AddPostForm addPost={props.addPost} />
                 </div>
             </div>
             {postElements}
