@@ -13,3 +13,10 @@
 .inputText:hover {
     background-color: antiquewhite;
 }
+
+.serverError {
+    padding: 5px;
+    border: 1px solid red;
+    color: red;
+    width: 270px;
+} 

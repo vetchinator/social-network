@@ -1,12 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
 import styles from "./Login.module.css";
+import { login } from '../../redux/auth-reducer';
+import { Redirect } from "react-router-dom";
 
 const LoginForm = (props) => {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data, e) => {
-        console.log(data);
-        e.target.reset();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onChange"
+      });
+    const onSubmit = (data) => {
+        props.login(data.email, data.password, data.rememberMe);
     };
 
     const validators = {
@@ -18,17 +22,17 @@ const LoginForm = (props) => {
             <div>
                 <input
                     className={styles.inputText}
-                    name="login"
-                    placeholder="Login"
+                    name="email"
+                    placeholder="email"
                     ref={register({
                         ...validators,
-                        maxLength: {
-                            value: 15,
-                            message: "Max symbols is 15",
-                        }
+                        pattern: {
+                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                            message: "Invalid email address",
+                        },
                     })}
                 />
-                 <p>{errors.login && errors.login.message}</p>
+                {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div>
                 <input
@@ -48,11 +52,15 @@ const LoginForm = (props) => {
             <div>
                 <input type="submit" />
             </div>
+            {props.formServerError ? <div className={styles.serverError}>{ props.formServerError }</div> : null}
         </form>
     );
 };
 
 const Login = (props) => {
+    if (props.isAuthenticated) {
+        return <Redirect to={'/profile'} />;
+    }
     return (
         <div className={styles.login}>
             <h1>Login</h1>
@@ -61,4 +69,11 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        formServerError: state.auth.formServerError
+    }
+}
+
+export default  connect(mapStateToProps, {login})(Login);
