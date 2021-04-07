@@ -45,7 +45,7 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, users: action.users };
         }
         case SET_PAGE: {
-            return { ...state, currentPage: action.pageNumber };
+            return { ...state, currentPage: action.page };
         }
         case SET_TOTAL_USERS_COUNT: {
             return { ...state, totalCountUsers: action.usersCount };
@@ -69,16 +69,16 @@ const usersReducer = (state = initialState, action) => {
 export const followSuccess = (userId) => ({ type: FOLLOW, userId });
 export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (pageNumber) => ({ type: SET_PAGE, pageNumber });
+export const setCurrentPage = (page) => ({ type: SET_PAGE, page });
 export const setTotalUsersCount = (usersCount) => ({ type: SET_TOTAL_USERS_COUNT, usersCount });
 export const toogleIsFetching = (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching });
 export const toogleFollowingProgress = (isFetching, userId) => ({ type: TOOGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
-        dispatch(setCurrentPage(currentPage));
+        dispatch(setCurrentPage(page));
         dispatch(toogleIsFetching(true));
-        userAPI.getUsers(currentPage, pageSize)
+        userAPI.getUsers(page, pageSize)
             .then((data) => {
                 dispatch(toogleIsFetching(false));
                 dispatch(setUsers(data.items));
