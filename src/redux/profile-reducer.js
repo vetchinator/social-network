@@ -52,22 +52,20 @@ export const getUserProfile = (userId) => {
     }
 }
 
-export const getUserStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getUserStatus(userId).then((data) => {
+export const getUserStatus = (userId) => (dispatch) => {
+    profileAPI.getUserStatus(userId)
+        .then((data) => {
             dispatch(setUserStatus(data));
         }); 
-    }
 }
 
-export const updateUserStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.updateUserStatus(status).then((data) => {
+export const updateUserStatus = (status) => (dispatch) => {
+    profileAPI.updateUserStatus(status)
+        .then((data) => {
             if(data.resultCode === 0) {
                 dispatch(setUserStatus(status));
             }
         }); 
-    }
 }
 
 export default profileReducer;
