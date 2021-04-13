@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 const AddPostForm = (props) => {
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
-        console.log(data);
         props.addPost(data.addPostText);
     };
     return (
@@ -21,8 +20,8 @@ const AddPostForm = (props) => {
     );
 };
 
-const MyPosts = (props) => {
-    let postElements = props.profilePage.posts.map((p) => (
+const MyPosts = props => {
+    let postElements = props.posts.map((p) => (
         <Post message={p.message} countLike={p.likesCount} key={p.id} />
     ));
 
