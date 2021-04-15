@@ -1,12 +1,11 @@
 import { userAPI } from '../api/api';
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
+const TOOGLE_FOLLOW = "TOOGLE_FOLLOW";
 const SET_USERS = "SET-USERS";
-const SET_PAGE = 'SET_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
-const TOOGLE_IS_FOLLOWING_PROGRESS = 'TOOGLE_IS_FOLLOWING_PROGRESS';
+const SET_PAGE = "SET_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+const TOOGLE_IS_FOLLOWING_PROGRESS = "TOOGLE_IS_FOLLOWING_PROGRESS";
 
 let initialState = {
     users: [ ],
@@ -19,23 +18,12 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FOLLOW: {
+        case TOOGLE_FOLLOW: {
             return {
                 ...state,
                 users: state.users.map((user) => {
                     if (user.id === action.userId) {
-                        return { ...user, followed: true };
-                    }
-                    return user;
-                }),
-            };
-        }
-        case UNFOLLOW: {
-            return {
-                ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.userId) {
-                        return { ...user, followed: false };
+                        return { ...user, followed: !user.followed };
                     }
                     return user;
                 }),
@@ -66,8 +54,7 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const followSuccess = (userId) => ({ type: FOLLOW, userId });
-export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
+export const toggleFollow = (userId) => ({ type: TOOGLE_FOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setCurrentPage = (page) => ({ type: SET_PAGE, page });
 export const setTotalUsersCount = (usersCount) => ({ type: SET_TOTAL_USERS_COUNT, usersCount });
@@ -87,25 +74,24 @@ export const requestUsers = (page, pageSize) => {
     };
 };
 
-export const follow = (userId) => {
-    return async (dispatch) => {
-        dispatch(toogleFollowingProgress(true, userId));
-        let data = await userAPI.followUser(userId);
+const followUnfollowFlow = async (dispatch, userId, apiMethod) => {
+    dispatch(toogleFollowingProgress(true, userId));
+        let data = await apiMethod(userId);
         if (data.resultCode === 0) {
-            dispatch(followSuccess(userId));
+            dispatch(toggleFollow(userId));
             dispatch(toogleFollowingProgress(false, userId));
         }
+}
+
+export const follow = (userId) => {
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userId, userAPI.followUser.bind(userAPI))
     };
 };
 
 export const unfollow = (userId) => {
     return async (dispatch) => {
-        dispatch(toogleFollowingProgress(true, userId));
-        let data = await userAPI.unfollowUser(userId);
-        if (data.resultCode === 0) {
-            dispatch(unfollowSuccess(userId));
-            dispatch(toogleFollowingProgress(false, userId));
-        }
+        followUnfollowFlow(dispatch, userId, userAPI.unfollowUser.bind(userAPI))
     };
 };
 
