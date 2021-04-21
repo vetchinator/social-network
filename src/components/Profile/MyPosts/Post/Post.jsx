@@ -1,10 +1,11 @@
 import React from "react";
 import s from "./Post.module.css";
+import logo from '../../../../images/user.png';
 
 const Post = (props) => {
     return (
         <div className={s.post}>
-            <img src="/user.png" alt="logo" />
+            <img src={ logo } alt="logo" />
             <div className={s.comment}>
                 <p>{props.message}</p>
                 <p>
