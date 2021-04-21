@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { HashRouter, Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { initializeApp } from "./redux/app-reducer";
 
@@ -64,11 +64,11 @@ let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp 
 
 const MainApp = (props) => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     );
 };
 
