@@ -12,4 +12,12 @@
   margin-top: 85px;
   margin-left: 360px;
   width: 100%;
+  text-align: center;
+}
+
+@media screen and (max-width:1000px) {
+  .body__wrapper {
+    margin-top: 53px;
+    margin-left: 0;
+  }
 }

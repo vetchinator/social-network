@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  line-height: 24px;
+  text-decoration: none;
+  font-size: 17px;
+  outline: none;
+  background: #ff8140;
+  border: 1px solid #f77c3d;
+  color: #fff;
+  box-shadow: 0px 1px 2px rgb(0 0 0 / 25%);
+  cursor: pointer;
+  min-width: 100px;
+}
+
+button:hover {
+  background: #f7671d;
+  border: 1px solid #f06923;
+}
+
+button[disabled] {
+  color: #d2d5db;
+  background: #6c7589;
+  cursor: not-allowed;
+}
+
+
+  
