@@ -30,6 +30,15 @@ export const profileAPI = {
     updateUserStatus(status) {
         return instance.put(`profile/status`, { status }).then((response) => response.data);
     },
+    savePhoto(filePhoto) {
+        const formData = new FormData();
+        formData.append("image", filePhoto);
+        return instance.put(`profile/photo`,  formData ).then((response) => response.data);    
+    },
+    saveProfile(profile) {
+        return instance.put('profile', profile).then((response) => response.data);
+    },
+
 };
 
 export const authAPI = {
