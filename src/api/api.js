@@ -33,12 +33,11 @@ export const profileAPI = {
     savePhoto(filePhoto) {
         const formData = new FormData();
         formData.append("image", filePhoto);
-        return instance.put(`profile/photo`,  formData ).then((response) => response.data);    
+        return instance.put(`profile/photo`, formData).then((response) => response.data);
     },
     saveProfile(profile) {
-        return instance.put('profile', profile).then((response) => response.data);
+        return instance.put("profile", profile).then((response) => response.data);
     },
-
 };
 
 export const authAPI = {
@@ -46,17 +45,15 @@ export const authAPI = {
         return instance.get("auth/me");
     },
     login(email, password, rememberMe = false, captcha = null) {
-        return instance.post("auth/login", {email, password, rememberMe, captcha});
+        return instance.post("auth/login", { email, password, rememberMe, captcha });
     },
     logout() {
         return instance.delete("auth/login");
     },
 };
 
-
 export const securityAPI = {
     getCaptchaUrl() {
         return instance.get("security/get-captcha-url");
     },
-    
 };
