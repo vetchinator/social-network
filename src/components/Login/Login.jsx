@@ -10,7 +10,7 @@ const LoginForm = (props) => {
         mode: "onChange"
       });
     const onSubmit = (data) => {
-        props.login(data.email, data.password, data.rememberMe);
+        props.login(data.email, data.password, data.rememberMe, data.captcha);
     };
 
     const validators = {
@@ -49,6 +49,17 @@ const LoginForm = (props) => {
                     remember me
                 </label>
             </div>
+            {props.captchaUrl && <img src={props.captchaUrl} alt="Captcha" /> } 
+            {props.captchaUrl && 
+            <div>
+                <input
+                    className={styles.inputText}
+                    name="captcha"
+                    placeholder="captcha"
+                    ref={register({ ...validators })}
+                />
+                {errors.captcha && <p>{errors.captcha.message}</p>}
+            </div>}   
             <div>
                 <input type="submit" />
             </div>
@@ -64,7 +75,7 @@ const Login = (props) => {
     return (
         <div className={styles.login}>
             <h1>Login</h1>
-            <LoginForm {...props} />
+            <LoginForm formServerError={props.formServerError} captchaUrl={props.captchaUrl} login={props.login} />
         </div>
     );
 };
@@ -72,7 +83,8 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        formServerError: state.auth.formServerError
+        formServerError: state.auth.formServerError,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
