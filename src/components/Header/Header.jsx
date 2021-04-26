@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
+import socialLogo from '../../assets/images/social-logo.png'; 
 
 const Header = (props) => {
     return (
@@ -8,7 +9,7 @@ const Header = (props) => {
             <div className={s.header__wrapper}>
                 <img
                     className={s.logo}
-                    src="https://img2.pngio.com/logo-png-images-download-150000-logo-png-resources-with-logo-download-png-360_360.png"
+                    src={socialLogo}
                     alt="logo"
                 />
                 <div className={s.blockLogin}>
