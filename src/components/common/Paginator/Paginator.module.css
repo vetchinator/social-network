@@ -1,3 +1,46 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+}
+
+.page {
+    padding: 6px;
+    background: #ff8140;
+    border-radius: 40%;
+    font-size: 20px;
+    line-height: 24px;
+    height: 25px;
+    width: 30px;
+    color: #fff;
+    border: 2px solid #ff8140;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+    transition: all 0.5s;
+}
+
+.page:hover {
+    background: #fff;
+    color: #ff8140;    
+}
+
 .selectedPage {
+    background: #fff;
+    color: #ff8140;
+    border: 2px solid #ff8140;
     font-weight: bold;
 }
+
+.arrow {
+    align-self: center;
+    color: #ff8140;
+    padding: 6px;
+    cursor: pointer;
+    transition: all 0.5s;
+    width: 25px;
+}
+
+.arrow:hover {
+    color: #80430b;
+}
+
