@@ -7,11 +7,14 @@ const Header = (props) => {
     return (
         <header className={s.header}>
             <div className={s.header__wrapper}>
-                <img
-                    className={s.logo}
-                    src={socialLogo}
-                    alt="logo"
-                />
+                <NavLink to={"/"}>
+                    <img
+                        className={s.logo}
+                        src={socialLogo}
+                        alt="logo"
+                    />
+                </NavLink>
+                
                 <div className={s.blockLogin}>
                     {props.isAuthenticated 
                         ? <div>{props.login} <button onClick={props.logout}>LogOut</button></div>
