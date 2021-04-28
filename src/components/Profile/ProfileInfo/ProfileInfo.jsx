@@ -48,38 +48,42 @@ const ProfileInfo = (props) => {
 
 const ProfileData = (props) => {
     return (
-        <div>
-            {props.isOwner && <button onClick={props.goToEditMode}>Edit</button> }
+        <div className={s.profileData}>
+            
+                <div className={s.titleBlock + " " + s.lntxt}>Main information</div>
                 <div>
-                    <span>
-                        <span className={s.titleCharacter}>fullName</span>: {props.profile.fullName}
+                    <span className={s.characterRow}> 
+                        <span className={s.titleCharacter}>Full name:</span> {props.profile.fullName}
                     </span>
                 </div>
                 <div>
-                    <span>
-                        <span className={s.titleCharacter}>lookingForAJob</span>:{" "}
+                    <span className={s.characterRow}>
+                        <span className={s.titleCharacter}>Looking for a job:</span>{" "}
                         {props.profile.lookingForAJob ? "yes" : "no"}
                     </span>
                 </div>
                 <div>
-                    <span>
-                        <span className={s.titleCharacter}>about me</span>: {props.profile.aboutMe}
+                    <span className={s.characterRow}>
+                        <span className={s.titleCharacter}>About me:</span> {props.profile.aboutMe}
                     </span>
                 </div>
                 <div>
-                    <span>
-                        <span className={s.titleCharacter}>lookingForAJobDescription</span>:{" "}
+                    <span className={s.characterRow}>
+                        <span className={s.titleCharacter}>Looking for a job description:</span>
                         {props.profile.lookingForAJobDescription}
                     </span>
                 </div>
+                <div className={s.titleBlock + " " + s.lntxt}>Contacts</div>
                 <div>
-                    <span>
-                        <span className={s.titleCharacter}>contacts</span>:
-                        {Object.keys(props.profile.contacts).map((key) => {
-                            return <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
-                        })}
+                    <span className={s.characterCol}>
+                        <div >
+                            {Object.keys(props.profile.contacts).map((key) => {
+                                return <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
+                            })}
+                        </div>
                     </span>
                 </div>
+                {props.isOwner && <button onClick={props.goToEditMode}>Edit</button> }
             </div>
     );
 };
@@ -89,8 +93,12 @@ const Contact = ({ title, value }) => {
         return null;
     }
     return (
-        <div className={s.contact}>
-            {title} :  <a href={value} target='_blank' rel="noopener noreferrer">{value}</a>
+        <div>
+            <span className={s.characterRow}>
+            <span className={s.titleCharacter}>{title}:</span>  
+                <a href={value} target='_blank' rel="noopener noreferrer">{value}</a>    
+            </span>
+                
         </div>
     );
 };

@@ -11,7 +11,7 @@ const AddPostForm = (props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <textarea type="text" name="addPostText" ref={register}></textarea>
+                <textarea  type="text" name="addPostText" ref={register}></textarea>
             </div>
             <div>
                 <button type="submit">Send post</button>

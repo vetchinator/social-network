@@ -41,4 +41,11 @@
     font-size: 20px;
 }
 
-/* .message {} */
+.message p {
+    background: #eaf3ff;
+    padding: 5px 13px;
+    margin-bottom: 9px;
+    border-radius: 10px;
+    text-align: left;
+    overflow-wrap: anywhere;
+}

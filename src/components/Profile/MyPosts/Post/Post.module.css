@@ -1,6 +1,8 @@
 .post {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    background-color: #eaf3ff;
+    border-radius: 8px 0 0 0;
 }
 
 .post img {
