@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, withRouter } from "react-router-dom";
+import { HashRouter, Redirect, Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { initializeApp } from "./redux/app-reducer";
 
@@ -37,6 +37,7 @@ class App extends React.Component {
                 <HeaderContainer />
                 <Navbar />
                 <div className="body__wrapper">
+                    <Route exact path="/" render={()=> { return <Redirect to="/profile" />}} />
                     <Route
                         path="/profile/:userId?"
                         render={withSuspense(ProfileContainer)}
@@ -50,6 +51,7 @@ class App extends React.Component {
                     <Route path="/settings" render={() => <Settings />} />
                     <Route path="/users" render={() => <UsersContainer />} />
                     <Route path="/login" render={() => <Login />} />
+                    <Route path="*" render={() => <div>404 Not Found</div>  } />
                 </div>
             </div>
         );
