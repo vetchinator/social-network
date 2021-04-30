@@ -1,4 +1,4 @@
-## Soical network
+## Social network
 
 ### Project placed on
 https://vetchinator.github.io/social-network/
