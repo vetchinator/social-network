@@ -39,6 +39,7 @@ const LoginForm = (props) => {
                     className={styles.inputText}
                     name="password"
                     placeholder="password"
+                    type="password"
                     ref={register({ ...validators })}
                 />
                 {errors.password && <p>{errors.password.message}</p>}
@@ -61,7 +62,7 @@ const LoginForm = (props) => {
                 {errors.captcha && <p>{errors.captcha.message}</p>}
             </div>}   
             <div>
-                <input type="submit" />
+                <button type="submit">Send</button>
             </div>
             {props.formServerError ? <div className={styles.serverError}>{ props.formServerError }</div> : null}
         </form>
