@@ -3,16 +3,53 @@
     margin-bottom: 15px;
     background-color: #eaf3ff;
     border-radius: 8px 0 0 0;
+    flex-direction: column;
+    padding: 10px;
 }
 
 .post img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    padding-right: 10px;
 }
 
 .comment {
-    display: flex;
-    flex-flow: column;
-    align-self: center;
+    width: 100%;
+    text-align: left;
 }
+
+.message {
+    border-bottom: 1px solid white;
+    padding: 10px 0px;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+
+/* LIKE */
+
+.likeWrapper {
+    display: flex;
+    padding-top: 10px;
+}
+
+.ico {
+    margin-left: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #232323;
+    transition: all .4s!important;
+}
+  
+.liked {
+    transform: scale(1.05) rotate(360deg);
+    color: red;
+}
+  

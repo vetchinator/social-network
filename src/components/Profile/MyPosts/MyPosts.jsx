@@ -21,8 +21,8 @@ const AddPostForm = (props) => {
 };
 
 const MyPosts = props => {
-    let postElements = props.posts.map((p) => (
-        <Post message={p.message} countLike={p.likesCount} key={p.id} />
+    let postElements = [...props.posts].reverse().map((p) => (
+        <Post setLike={props.setLike} post={p} key={p.id} photo={props.photo} fullName={props.fullName} />
     ));
 
     return (

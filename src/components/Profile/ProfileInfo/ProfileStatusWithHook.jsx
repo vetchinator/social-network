@@ -10,6 +10,7 @@ const ProfileStatus = (props) => {
     }, [props.status])
 
     const activateEditMode = () => {
+        props.isOwner &&
         setEditMode(true);
     }
 
@@ -23,22 +24,24 @@ const ProfileStatus = (props) => {
     };
 
     return (
-        <div>
+        <div className={s.statusWrapper}>
             {editMode ? (
-                <div>
-                    <input
+                <div className={s.statusInputBlock}>
+                    <input className={s.statusInput}
                         onChange={ onStatusChange }
                         autoFocus={true}
-                        onMouseLeave={ deactivateEditMode }
                         type="text"
                         value={ status }
                     />
+                    <button onClick={ deactivateEditMode}>Save</button>
                 </div>
             ) : (
-                <div>
-                    <span onClick={activateEditMode}>
+                <div className={s.statusContainer} onClick={activateEditMode}>
+                    <span  className={s.status} >
                         { status ? status : "changeStatus" }
+                       {props.isOwner && <span className={s.helpMsg}>Click to Edit</span> } 
                     </span>
+                    
                 </div>
             )}
         </div>

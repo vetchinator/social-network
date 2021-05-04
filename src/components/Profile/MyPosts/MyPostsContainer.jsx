@@ -4,9 +4,17 @@ import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
+    if (!state.profilePage.profile) {
+        return {
+            posts: state.profilePage.posts,
+            newPostText: state.profilePage.newPostText,   
+        }
+    } 
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
+        newPostText: state.profilePage.newPostText,
+        photo: state.profilePage.profile.photos.small,
+        fullName: state.profilePage.profile.fullName
     };
 };
 

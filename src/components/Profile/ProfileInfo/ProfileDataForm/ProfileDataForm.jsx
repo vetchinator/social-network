@@ -9,54 +9,55 @@ const ProfileDataForm = (props) => {
         formState: { errors },
     } = useForm({
         mode: "onChange",
-        defaultValues: {...props.profile},
+        defaultValues: { ...props.profile },
     });
     const validators = {
         required: "Field is fill",
     };
     return (
-        <form onSubmit={handleSubmit(props.onSubmit)}>
+        <form className={s.profileData} onSubmit={handleSubmit(props.onSubmit)}>
             <div>
-                <button type="submit">Save</button>
-                <div>
-                    <span className={s.titleCharacter}>lookingForAJobDescription</span>:
+                <div className={s.titleBlock + " " + s.lntxt}>Main information</div>
+                <div className={s.characterRow}>
+                    <span className={s.titleCharacter}>Full name:</span>
                     <input name="fullName" placeholder="Name" ref={register({ ...validators })} />
                     {errors.fullName && <p>{errors.fullName.message}</p>}
-
                 </div>
-                <div>
-                    <div>
-                        <label>
-                            lookingForAJob
-                            <input name="lookingForAJob" type="checkbox" ref={register} />
-                        </label>
-                    </div>
+                <div className={s.characterRow}>
+                    <input id="lookingForAJob" name="lookingForAJob" type="checkbox" ref={register} />
+                    <label className={s.labelCheckbox} for="lookingForAJob">
+                        <span className={s.titleCharacter}>Looking for a job</span>
+                    </label>
                 </div>
-                <div>
-                    <span className={s.titleCharacter}>AboutMe</span>:
+                <div className={s.characterRow}>
+                    <span className={s.titleCharacter}>About me:</span>
                     <input name="aboutMe" placeholder="AboutMe" ref={register({ ...validators })} />
                     {errors.aboutMe && <p>{errors.aboutMe.message}</p>}
                 </div>
-
-                <div>
-                    <span className={s.titleCharacter}>lookingForAJobDescription</span>:
-                    <input name="lookingForAJobDescription" placeholder="lookingForAJobDescription" ref={register({ ...validators })} />
+                <div className={s.characterRow}>
+                    <span className={s.titleCharacter}>Looking for a job description:</span>
+                    <input
+                        name="lookingForAJobDescription"
+                        placeholder="lookingForAJobDescription"
+                        ref={register({ ...validators })}
+                    />
                     {errors.lookingForAJobDescription && <p>{errors.lookingForAJobDescription.message}</p>}
                 </div>
-                <div>
-                    <span>
-                        <span className={s.titleCharacter}>contacts</span>:
-                        {Object.keys(props.profile.contacts).map((key) => {
-                            return <div key={key}>
-                                <span>{key}</span>
-                                <input name={"contacts."+ key} placeholder={key} ref={register} />
+                <div className={s.titleBlock + " " + s.lntxt}>Contacts</div>
+                <div className={s.characterCol}>
+                    {Object.keys(props.profile.contacts).map((key) => {
+                        return (
+                            <div className={s.characterRow} key={key}>
+                                <span className={s.titleCharacter}>{key}</span>
+                                <input name={"contacts." + key} placeholder={key} ref={register} />
                             </div>
-                            // <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
-                        })}
-                    </span>
+                        );
+                        // <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
+                    })}
                 </div>
+                <button type="submit">Save</button>
             </div>
-            {props.formServerError ? <div className={s.serverError}>{ props.formServerError }</div> : null}
+            {props.formServerError ? <div className={s.serverError}>{props.formServerError}</div> : null}
         </form>
     );
 };
