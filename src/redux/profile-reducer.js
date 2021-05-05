@@ -22,7 +22,7 @@ let initialState = {
     ],
     profile: null,
     status: "",
-    formServerError: null
+    serverErrorMessage: "",
 };
 
 //state.profilePage
@@ -63,7 +63,7 @@ const profileReducer = (state = initialState, action) => {
         case SET_SERVER_ERROR: {
             return {
                 ...state,
-                formServerError: action.error,
+                serverErrorMessage: action.error,
             }
         }
         default:

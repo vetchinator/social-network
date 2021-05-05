@@ -169,3 +169,7 @@ input[type=checkbox]:checked + .labelCheckbox:after {
 .uploadFileLabel:hover {
   border: 2px dashed #58862D;
 }
+
+.serverError {
+  margin: 10px auto;
+}

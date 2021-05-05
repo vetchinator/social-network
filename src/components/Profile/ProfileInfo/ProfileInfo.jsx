@@ -57,7 +57,7 @@ const ProfileInfo = (props) => {
                 />
             </div>
             {editMode ? (
-                <ProfileDataForm onSubmit={onSubmit} saveProfile={props.saveProfile} profile={props.profile} />
+                <ProfileDataForm serverErrorMessage={props.serverErrorMessage} onSubmit={onSubmit} saveProfile={props.saveProfile} profile={props.profile} />
             ) : (
                 <ProfileData goToEditMode={goToEditMode} isOwner={props.isOwner} profile={props.profile} />
             )}

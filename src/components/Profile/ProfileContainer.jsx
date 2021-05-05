@@ -51,6 +51,7 @@ const mapStateToProps = (state) => {
         authorisedUserId: state.auth.userId,
         newPostText: state.profilePage.newPostText,
         posts: state.profilePage.posts,
+        serverErrorMessage: state.profilePage.serverErrorMessage
     };
 };
 

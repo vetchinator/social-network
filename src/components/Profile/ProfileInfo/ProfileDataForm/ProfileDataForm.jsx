@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import s from "./../ProfileInfo.module.css";
 
@@ -25,7 +25,7 @@ const ProfileDataForm = (props) => {
                 </div>
                 <div className={s.characterRow}>
                     <input id="lookingForAJob" name="lookingForAJob" type="checkbox" ref={register} />
-                    <label className={s.labelCheckbox} for="lookingForAJob">
+                    <label className={s.labelCheckbox} htmlFor="lookingForAJob">
                         <span className={s.titleCharacter}>Looking for a job</span>
                     </label>
                 </div>
@@ -52,12 +52,11 @@ const ProfileDataForm = (props) => {
                                 <input name={"contacts." + key} placeholder={key} ref={register} />
                             </div>
                         );
-                        // <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
                     })}
                 </div>
                 <button type="submit">Save</button>
             </div>
-            {props.formServerError ? <div className={s.serverError}>{props.formServerError}</div> : null}
+            {props.serverErrorMessage ? <div className={s.serverError}>{props.serverErrorMessage}</div> : null}
         </form>
     );
 };

@@ -17,6 +17,7 @@ const Profile = (props) => {
                 status={props.status}
                 updateUserStatus={props.updateUserStatus}
                 isOwner={props.isOwner}
+                serverErrorMessage={props.serverErrorMessage}
             />
             <MyPosts setLike={props.setLike} addPost={props.addPost} posts={props.posts} newPostText={props.newPostText} photo={props.profile.photos.small} fullName={props.profile.fullName}  />
         </div>
