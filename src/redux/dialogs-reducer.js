@@ -1,5 +1,5 @@
-const SEND_MESSAGE = "SEND-MESSAGE";
-const DELETE_MESSAGE = "DELETE_MESSAGE";
+const SEND_MESSAGE = "dialog/SEND-MESSAGE";
+const DELETE_MESSAGE = "dialog/DELETE_MESSAGE";
 
 let initialState = {
     dialogs: [

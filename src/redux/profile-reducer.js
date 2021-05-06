@@ -1,11 +1,11 @@
 import { userAPI, profileAPI } from '../api/api';
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_USER_STATUS = "SET_USER_STATUS";
-const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
-const SET_SERVER_ERROR = "SET_SERVER_ERROR";
-const CHANGE_LIKE = "CHANGE_LIKE";
+const ADD_POST = "profile/ADD-POST";
+const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
+const SET_USER_STATUS = "profile/SET_USER_STATUS";
+const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
+const SET_SERVER_ERROR = "profile/SET_SERVER_ERROR";
+const CHANGE_LIKE = "profile/CHANGE_LIKE";
 
 let initialState = {
     posts: [

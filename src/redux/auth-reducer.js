@@ -1,8 +1,8 @@
 import { authAPI, securityAPI } from '../api/api';
 
-const SET_USER_DATA = "SET_USER_DATA";
-const SET_SERVER_ERROR = "SET_SERVER_ERROR";
-const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
+const SET_USER_DATA = "auth/SET_USER_DATA";
+const SET_SERVER_ERROR = "auth/SET_SERVER_ERROR";
+const GET_CAPTCHA_URL_SUCCESS = "auth/GET_CAPTCHA_URL_SUCCESS";
 
 let initialState = {
     userId: null,
