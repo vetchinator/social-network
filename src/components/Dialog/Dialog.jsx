@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form";
 
 const AddMessageForm = (props) => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+    const onSubmit = (data, e) => {
         props.sendMessage(data.addMessage);
+        e.target.reset();
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
