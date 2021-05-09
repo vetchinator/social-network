@@ -1,4 +1,5 @@
 import { userAPI, profileAPI } from '../api/api';
+import { PostType, ProfileType } from '../types/types';
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
@@ -6,6 +7,10 @@ const SET_USER_STATUS = "profile/SET_USER_STATUS";
 const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
 const SET_SERVER_ERROR = "profile/SET_SERVER_ERROR";
 const CHANGE_LIKE = "profile/CHANGE_LIKE";
+
+
+
+export type InitialStateType = typeof initialState;
 
 let initialState = {
     posts: [
@@ -19,14 +24,14 @@ let initialState = {
         You can close the tic-tac-toe game once you’re familiar with it. We’ll be starting from a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.`,
         countLike: 15, isLiked: false },
         { id: 2, message: "Hi, i'm learning React", countLike: 20, isLiked: true },
-    ],
-    profile: null,
+    ] as Array<PostType> ,
+    profile: null as ProfileType | null,
     status: "",
     serverErrorMessage: "",
 };
 
 //state.profilePage
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             let numberId = state.posts[state.posts.length-1].id;
@@ -48,7 +53,7 @@ const profileReducer = (state = initialState, action) => {
             return { ...state, status: action.status };
         }
         case SAVE_PHOTO_SUCCESS: {
-            return { ...state, profile: {...state.profile, photos: action.filePhoto} };
+            return { ...state, profile: {...state.profile, photos: action.filePhoto} as ProfileType };
         }
         case CHANGE_LIKE: {
             return { ...state, 
@@ -70,38 +75,63 @@ const profileReducer = (state = initialState, action) => {
             return state;
     }
 };
+type AddPostActionType = {
+    type: typeof ADD_POST,
+    newPostText: string
+}
+export const addPost = (newPostText: string): AddPostActionType => ({ type: ADD_POST, newPostText });
+type SetUserProfileActionType = {
+    type: typeof SET_USER_PROFILE,
+    profile: ProfileType
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile });
+type SetUserStatusActionType = {
+    type: typeof SET_USER_STATUS,
+    status: string
+}
+export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status });
+type SavePhotoSuccessActionType = {
+    type: typeof SAVE_PHOTO_SUCCESS,
+    filePhoto: any
+}
+export const savePhotoSuccess = (filePhoto: any): SavePhotoSuccessActionType => ({ type: SAVE_PHOTO_SUCCESS, filePhoto });
+type SetServerErrorActionType = {
+    type: typeof SET_SERVER_ERROR,
+    error: string
+}
+export const setServerError = (error: string): SetServerErrorActionType => ({ type: SET_SERVER_ERROR, error });
+type SetLiketActionType = {
+    type: typeof CHANGE_LIKE,
+    id: number,
+    isLiked: boolean,
+    countLike: number
+}
+export const setLike = (id: number, isLiked: boolean, countLike: number): SetLiketActionType => ({ type: CHANGE_LIKE, id, isLiked, countLike });
 
-export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
-export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
-export const savePhotoSuccess = (filePhoto) => ({ type: SAVE_PHOTO_SUCCESS, filePhoto });
-export const setServerError = (error) => ({ type: SET_SERVER_ERROR, error });
-export const setLike = (id, isLiked, countLike) => ({ type: CHANGE_LIKE, id, isLiked, countLike });
-
-export const getUserProfile = (userId) => async (dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: any) => {
     let data = await userAPI.getUserProfile(userId);
     dispatch(setUserProfile(data));
 };
 
-export const getUserStatus = (userId) => async (dispatch) => {
+export const getUserStatus = (userId: number) => async (dispatch: any) => {
     let data = await profileAPI.getUserStatus(userId);
     dispatch(setUserStatus(data));
 };
 
-export const updateUserStatus = (status) => async (dispatch) => {
+export const updateUserStatus = (status: string) => async (dispatch: any) => {
     let data = await profileAPI.updateUserStatus(status);
     if (data.resultCode === 0) {
         dispatch(setUserStatus(status));
     }
 };
-export const savePhoto = (filePhoto) => async (dispatch) => {
+export const savePhoto = (filePhoto: any) => async (dispatch: any) => {
     let response = await profileAPI.savePhoto(filePhoto);
 
     if (response.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.photos));
     }
 };
-export const saveProfile = (profile) => async (dispatch, getState) => {
+export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
     let response = await profileAPI.saveProfile(profile);
 
