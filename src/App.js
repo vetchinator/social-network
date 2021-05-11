@@ -17,6 +17,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import reactDom from 'react-dom';
 
 let ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 let DialogContainer = React.lazy(() => import("./components/Dialog/DialogContainer"));
@@ -37,21 +38,21 @@ class App extends React.Component {
                 <Navbar />
                 <div className="body__wrapper">
                     <Switch>
-                    <Route exact path="/" render={()=> { return <Redirect to="/profile" />}} />
-                    <Route
-                        path="/profile/:userId?"
-                        render={withSuspense(ProfileContainer)}
-                    />
-                    <Route
-                        path="/dialog"
-                        render={withSuspense(DialogContainer)}
-                    />
-                    <Route path="/news" render={() => <News />} />
-                    <Route path="/music" render={() => <Music />} />
-                    <Route path="/settings" render={() => <Settings />} />
-                    <Route path="/users" render={() => <UsersContainer />} />
-                    <Route path="/login" render={() => <Login />} />
-                    <Route path="*" render={() => <ErrorPage /> } />
+                        <Route
+                            exact
+                            path="/"
+                            render={() => {
+                                return <Redirect to="/profile" />;
+                            }}
+                        />
+                        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
+                        <Route path="/dialog" render={withSuspense(DialogContainer)} />
+                        <Route path="/news" render={() => <News />} />
+                        <Route path="/music" render={() => <Music />} />
+                        <Route path="/settings" render={() => <Settings />} />
+                        <Route path="/users" render={() => <UsersContainer />} />
+                        <Route path="/login" render={() => <Login />} />
+                        <Route path="*" render={() => <ErrorPage />} />
                     </Switch>
                 </div>
             </div>
