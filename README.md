@@ -3,6 +3,11 @@
 ### Project placed on
 https://vetchinator.github.io/social-network/
 
+### Test account
+
+Email: free@samuraijs.com
+Password: free
+
 ### Available Scripts
 
 In the project directory, you can run:
