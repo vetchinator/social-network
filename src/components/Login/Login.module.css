@@ -1,5 +1,3 @@
-/* font-family: 'Comfortaa', cursive; */
-
 .inputText {
     padding: 6px 12px 8px;
     border-radius: 3px;
@@ -20,3 +18,40 @@
     color: red;
     width: 270px;
 } 
+
+input[type=checkbox] {display: none;}
+
+.labelCheckbox {
+  display: flex;
+  margin: 10px 0px;
+  justify-content: center;
+}
+
+input[type=checkbox] + .labelCheckbox:after {
+  content: "\2714";
+  color: transparent;
+  display: inline-block;
+  border: 1px solid #ccc;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 22px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  vertical-align: middle;
+  transition: color ease .3s;
+  margin-left: 20px;
+}
+
+input[type=checkbox]:checked + .labelCheckbox:after {
+  color: #000;
+  border-color: #000;
+}
+
+.loginFormWrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #f0f2f5;
+    padding: 20px 10px;
+    border-radius: 10px;
+}
