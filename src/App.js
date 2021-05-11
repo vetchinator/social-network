@@ -17,7 +17,6 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import ErrorPage from './components/ErrorPage/ErrorPage';
-import reactDom from 'react-dom';
 
 let ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 let DialogContainer = React.lazy(() => import("./components/Dialog/DialogContainer"));
