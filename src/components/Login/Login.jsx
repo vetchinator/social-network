@@ -19,7 +19,7 @@ const LoginForm = (props) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <div >
                 <input
                     className={styles.inputText}
                     name="email"
@@ -44,12 +44,18 @@ const LoginForm = (props) => {
                 />
                 {errors.password && <p>{errors.password.message}</p>}
             </div>
-            <div>
+            <div className={styles.characterRow}>
+                    <input id="rememberMe" name="rememberMe" type="checkbox" ref={register} />
+                    <label className={styles.labelCheckbox} htmlFor="rememberMe">
+                        <span className={styles.titleCharacter}>Remember me</span>
+                    </label>
+            </div>
+            {/* <div>
                 <label className={styles.label}>
                     <input name="rememberMe" type="checkbox" ref={register} />
                     remember me
                 </label>
-            </div>
+            </div> */}
             {props.captchaUrl && <img src={props.captchaUrl} alt="Captcha" /> } 
             {props.captchaUrl && 
             <div>
@@ -74,7 +80,7 @@ const Login = (props) => {
         return <Redirect to={'/profile'} />;
     }
     return (
-        <div className={styles.login}>
+        <div className={styles.loginFormWrapper}>
             <h1>Login</h1>
             <LoginForm formServerError={props.formServerError} captchaUrl={props.captchaUrl} login={props.login} />
         </div>

@@ -3,8 +3,17 @@ import s from "./Paginator.module.css";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-const Paginator = ({ totalCountUsers, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
-    let pageCount = Math.ceil(totalCountUsers / pageSize);
+type PropTypes = {
+    totalCountItems: number,
+    pageSize: number,
+    currentPage: number,
+    portionSize?: number
+
+    onPageChanged: (page: number) => void,
+}
+
+const Paginator: React.FC<PropTypes> = ({ totalCountItems, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
+    let pageCount = Math.ceil(totalCountItems / pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);

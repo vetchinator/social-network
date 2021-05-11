@@ -10,15 +10,37 @@ import {
     getTotalCountUsers,
     getPageSize,
     getCurrentPage,
-    getFollowingInProgress
+    getFollowingInProgress,
+    getIsFetching
 } from '../../redux/users-selector';
+import { UserType } from "../../types/types";
+import { RootState } from "../../redux/redux-store";
 
-class UsersAPIContainer extends React.Component {
+type MapStateToPropsType = {
+    currentPage: number,
+    pageSize: number,
+    isFetching: boolean, 
+    totalCountUsers: number,
+    users: Array<UserType>,
+    followingInProgress: Array<number>,
+}
+
+type OwnPropsType = {}
+
+type MapDispatchToPropsType = {
+    requestUsers: (currentPage: number, pageSize: number) => void,
+    follow: (id: number) => void,
+    unfollow: (id: number) => void,
+}
+
+type PropType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
+
+class UsersAPIContainer extends React.Component<PropType> {
     componentDidMount() {
         this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber: number) => {
         this.props.requestUsers(pageNumber, this.props.pageSize);
     };
 
@@ -42,17 +64,20 @@ class UsersAPIContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState): MapStateToPropsType => {
     return {
         users: getUsers(state),
         totalCountUsers: getTotalCountUsers(state),
         pageSize: getPageSize(state),
         currentPage: getCurrentPage(state),
         followingInProgress: getFollowingInProgress(state),
+        isFetching: getIsFetching(state)
     };
 };
-
+// TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState
 export default compose(
-    connect(mapStateToProps, { follow, unfollow, requestUsers }),
-)
-(UsersAPIContainer);
+    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, RootState>(
+        mapStateToProps,
+        {follow, unfollow, requestUsers}
+    )
+)(UsersAPIContainer);
