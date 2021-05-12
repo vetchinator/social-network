@@ -27,6 +27,11 @@ nav ul li a:hover {
   color: #fff;
 }
 
+.activeLink {
+  background: linear-gradient(128deg, #fa2f2f 0%, #ff5b36 90%);
+  color: #fff;  
+}
+
 @media screen and (max-width:1000px) {
   .nav {
     width: 100%;

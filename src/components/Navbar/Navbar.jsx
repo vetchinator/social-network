@@ -8,25 +8,24 @@ const Navbar = (props) => {
         <nav className={s.nav}>
             <ul>
                 <li>
-                    <NavLink to="/profile">Profile</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/profile">Profile</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/dialog">Messages</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/dialog">Messages</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/news">News</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/news">News</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/music">Music</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/music">Music</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/settings">Settings</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/settings">Settings</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/users">Find Users</NavLink>
+                    <NavLink activeClassName={s.activeLink} to="/users">Find Users</NavLink>
                 </li>
             </ul>
-            {/* <Friends friends={state.friends}/> */}
         </nav>
     );
 };
