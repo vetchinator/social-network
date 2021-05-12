@@ -3,7 +3,13 @@ import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 import socialLogo from '../../assets/images/social-logo.png'; 
 
-const Header = (props) => {
+type PropType = {
+    login: string | null,
+    isAuthenticated: boolean,
+    logout: () => void
+}
+
+const Header: React.FC<PropType>= ({isAuthenticated, login, logout}) => {
     return (
         <header className={s.header}>
             <div className={s.header__wrapper}>
@@ -16,8 +22,8 @@ const Header = (props) => {
                 </NavLink>
                 
                 <div className={s.blockLogin}>
-                    {props.isAuthenticated 
-                        ? <div>{props.login} <button onClick={props.logout}>LogOut</button></div>
+                    {isAuthenticated 
+                        ? <div>{login} <button onClick={logout}>LogOut</button></div>
                         : <NavLink to={'/login'}>Login</NavLink>
                     }
                 </div>

@@ -4,12 +4,26 @@ import { connect } from "react-redux";
 import styles from "./Login.module.css";
 import { login } from '../../redux/auth-reducer';
 import { Redirect } from "react-router-dom";
+import { RootState } from "../../redux/redux-store";
 
-const LoginForm = (props) => {
+type PropFormType = {
+    formServerError: string | null,
+    captchaUrl: string | null,
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+}
+
+type DataType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string
+}
+
+const LoginForm: React.FC<PropFormType>= (props) => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
       });
-    const onSubmit = (data) => {
+    const onSubmit = (data: DataType) => {
         props.login(data.email, data.password, data.rememberMe, data.captcha);
     };
 
@@ -50,12 +64,6 @@ const LoginForm = (props) => {
                         <span className={styles.titleCharacter}>Remember me</span>
                     </label>
             </div>
-            {/* <div>
-                <label className={styles.label}>
-                    <input name="rememberMe" type="checkbox" ref={register} />
-                    remember me
-                </label>
-            </div> */}
             {props.captchaUrl && <img src={props.captchaUrl} alt="Captcha" /> } 
             {props.captchaUrl && 
             <div>
@@ -75,7 +83,7 @@ const LoginForm = (props) => {
     );
 };
 
-const Login = (props) => {
+const Login: React.FC<PropType> = (props) => {
     if (props.isAuthenticated) {
         return <Redirect to={'/profile'} />;
     }
@@ -87,7 +95,19 @@ const Login = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
+type MapStateToPropsType = {
+    isAuthenticated: boolean,
+    formServerError: string | null,
+    captchaUrl: string | null,
+};
+type MapDispatchToPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+};
+type OwnPropsType = {};
+
+type PropType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
+
+const mapStateToProps = (state: RootState) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         formServerError: state.auth.formServerError,
@@ -95,4 +115,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default  connect(mapStateToProps, {login})(Login);
+export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, RootState>(mapStateToProps, {
+    login,
+})(Login);
