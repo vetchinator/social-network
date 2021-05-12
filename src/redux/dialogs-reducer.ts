@@ -1,11 +1,7 @@
-import { Dispatch } from "react";
-import { ThunkAction } from "redux-thunk";
 import { DialogItemType, MessageItemType } from "../types/types";
 
 const SEND_MESSAGE = "dialog/SEND-MESSAGE";
 const DELETE_MESSAGE = "dialog/DELETE_MESSAGE";
-
-
 
 let initialState = {
     dialogs: [
