@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatusWithHook";
 import logo from "../../../assets/images/user.png";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import { ProfileType } from "../../../types/types";
+import ProfileData from "./profileData/ProfileData";
 
-const ProfileInfo = (props) => {
+type PropType = {
+    profile: ProfileType;
+    isOwner: boolean;
+    status: string;
+    serverErrorMessage: string;
+
+    updateUserStatus: (status: string) => void;
+    savePhoto: (file: File) => void;
+    saveProfile: (profile: ProfileType) => Promise<any>;
+};
+
+const ProfileInfo: React.FC<PropType> = (props) => {
     let [fileName, setfileName] = useState("Add image");
     let [editMode, setEditMode] = useState(false);
 
@@ -12,14 +25,14 @@ const ProfileInfo = (props) => {
         setEditMode(true);
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: ProfileType) => {
         props.saveProfile(data).then(() => {
             setEditMode(false);
         });
     };
 
-    let onMainPhotoSelected = (e) => {
-        if (e.target.files.length) {
+    let onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
             props.savePhoto(e.target.files[0]);
             setfileName(e.target.files[0].name);
         } else {
@@ -57,67 +70,14 @@ const ProfileInfo = (props) => {
                 />
             </div>
             {editMode ? (
-                <ProfileDataForm serverErrorMessage={props.serverErrorMessage} onSubmit={onSubmit} saveProfile={props.saveProfile} profile={props.profile} />
+                <ProfileDataForm
+                    serverErrorMessage={props.serverErrorMessage}
+                    onSubmit={onSubmit}
+                    profile={props.profile}
+                />
             ) : (
                 <ProfileData goToEditMode={goToEditMode} isOwner={props.isOwner} profile={props.profile} />
             )}
-        </div>
-    );
-};
-
-const ProfileData = (props) => {
-    return (
-        <div className={s.profileData}>
-            <div className={s.titleBlock + " " + s.lntxt}>Main information</div>
-            <div>
-                <span className={s.characterRow}>
-                    <span className={s.titleCharacter}>Full name:</span> {props.profile.fullName}
-                </span>
-            </div>
-            <div>
-                <span className={s.characterRow}>
-                    <span className={s.titleCharacter}>Looking for a job:</span>{" "}
-                    {props.profile.lookingForAJob ? "yes" : "no"}
-                </span>
-            </div>
-            <div>
-                <span className={s.characterRow}>
-                    <span className={s.titleCharacter}>About me:</span> {props.profile.aboutMe}
-                </span>
-            </div>
-            <div>
-                <span className={s.characterRow}>
-                    <span className={s.titleCharacter}>Looking for a job description:</span>
-                    {props.profile.lookingForAJobDescription}
-                </span>
-            </div>
-            <div className={s.titleBlock + " " + s.lntxt}>Contacts</div>
-            <div>
-                <span className={s.characterCol}>
-                    <div>
-                        {Object.keys(props.profile.contacts).map((key) => {
-                            return <Contact key={key} title={key} value={props.profile.contacts[key]}></Contact>;
-                        })}
-                    </div>
-                </span>
-            </div>
-            {props.isOwner && <button onClick={props.goToEditMode}>Edit</button>}
-        </div>
-    );
-};
-
-const Contact = ({ title, value }) => {
-    if (!value) {
-        return null;
-    }
-    return (
-        <div>
-            <span className={s.characterRow}>
-                <span className={s.titleCharacter}>{title}:</span>
-                <a href={value} target="_blank" rel="noopener noreferrer">
-                    {value}
-                </a>
-            </span>
         </div>
     );
 };

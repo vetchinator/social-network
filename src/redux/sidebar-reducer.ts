@@ -1,7 +1,14 @@
+import { InferActionsTypes } from "./redux-store";
+
 let initialState = {};
 
 export type InitialStateType = typeof initialState; 
-const sidebarReducer = (state = initialState, action: any): InitialStateType => {
+
+type ActionTypes = InferActionsTypes<typeof actions>;
+
+export const actions = {};
+
+const sidebarReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     return state;
 };
 

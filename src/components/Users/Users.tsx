@@ -10,6 +10,7 @@ type PropType = {
     currentPage: number, 
     users: Array<UserType>,
     followingInProgress: Array<number>,
+    
     onPageChanged: (page: number) => void,
     follow: (id: number) => void,
     unfollow: (id: number) => void,
@@ -24,7 +25,7 @@ const Users: React.FC<PropType> = ({totalCountUsers, pageSize, currentPage, onPa
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}
             />
-
+            
             <div className={s.users}>
                 {users.map((user) => (
                     <User key={user.id} user={user} unfollow={unfollow} follow={follow}

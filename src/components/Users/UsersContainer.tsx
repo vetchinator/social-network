@@ -28,9 +28,9 @@ type MapStateToPropsType = {
 type OwnPropsType = {};
 
 type MapDispatchToPropsType = {
-    requestUsers: (currentPage: number, pageSize: number) => void;
-    follow: (id: number) => void;
-    unfollow: (id: number) => void;
+    requestUsers: (currentPage: number, pageSize: number) => void,
+    follow: (id: number) => void,
+    unfollow: (id: number) => void,
 };
 
 type PropType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
@@ -47,8 +47,8 @@ class UsersAPIContainer extends React.Component<PropType> {
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader /> : null}
-
+               
+               {this.props.isFetching ? <Preloader /> : null}
                 <Users
                     users={this.props.users}
                     totalCountUsers={this.props.totalCountUsers}
@@ -59,6 +59,7 @@ class UsersAPIContainer extends React.Component<PropType> {
                     unfollow={this.props.unfollow}
                     followingInProgress={this.props.followingInProgress}
                 />
+                
             </>
         );
     }

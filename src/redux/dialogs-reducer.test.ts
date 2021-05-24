@@ -1,4 +1,4 @@
-import { sendMessage, deleteMessage } from './dialogs-reducer';
+import { actions } from './dialogs-reducer';
 import dialogsReducer from './dialogs-reducer';
 
 let state = {
@@ -19,7 +19,7 @@ let state = {
 
 it('Message length should be increment',() => {
     // 1. Test Data
-    let action =  sendMessage('Hi');
+    let action =  actions.sendMessage('Hi');
 
     //2. action
     let newState = dialogsReducer(state, action);
@@ -30,7 +30,7 @@ it('Message length should be increment',() => {
 
 it('Message text should be correct',() => {
     // 1. Test Data
-    let action =  sendMessage('Hi');
+    let action =  actions.sendMessage('Hi');
 
     //2. action
     let newState = dialogsReducer(state, action);
@@ -41,7 +41,7 @@ it('Message text should be correct',() => {
 
 it('Message length should be decrement',() => {
     // 1. Test Data
-    let action =  deleteMessage(4);
+    let action =  actions.deleteMessage(4);
 
     //2. action
     let newState = dialogsReducer(state, action);

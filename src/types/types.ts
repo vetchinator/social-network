@@ -12,15 +12,16 @@ export type PhotosType = {
 }
 
 export type ProfileType = {
-    userId: number | null,
-    lookingForAJob: boolean | null,
-    lookingForAJobDescription: string | null,
-    fullName: string | null,
-    contacts: ContactType | null,
-    photos : PhotosType | null,   
+    userId: number ,
+    lookingForAJob: boolean ,
+    lookingForAJobDescription: string ,
+    fullName: string ,
+    contacts: ContactsType ,
+    photos : PhotosType,   
+    aboutMe: string
 }
 
-type ContactType = {
+export type ContactsType = {
     github: string | null,
     vk: string | null,
     facebook: string | null,

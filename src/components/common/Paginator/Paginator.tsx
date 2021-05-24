@@ -12,8 +12,8 @@ type PropTypes = {
     onPageChanged: (page: number) => void,
 }
 
-const Paginator: React.FC<PropTypes> = ({ totalCountItems, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
-    let pageCount = Math.ceil(totalCountItems / pageSize);
+const Paginator: React.FC<PropTypes> = ({ totalCountItems, pageSize, currentPage = 1, onPageChanged, portionSize = 10 }) => {
+    let pageCount = Math.floor(totalCountItems / pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
@@ -21,7 +21,7 @@ const Paginator: React.FC<PropTypes> = ({ totalCountItems, pageSize, currentPage
     if (window.innerWidth <= 550) {
         portionSize = 5;
     }
-    let [portionNumber, setPortionNumber] = useState(1);
+    let [portionNumber, setPortionNumber] = useState(currentPage);
     let portionCount = Math.ceil(pageCount / portionSize);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;

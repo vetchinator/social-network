@@ -107,7 +107,7 @@ type OwnPropsType = {};
 
 type PropType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): MapStateToPropsType=> {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         formServerError: state.auth.formServerError,

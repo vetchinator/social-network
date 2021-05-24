@@ -2,8 +2,16 @@ import React from "react";
 import s from "./Post.module.css";
 import logo from '../../../../images/user.png';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { PhotosType, PostType } from "../../../../types/types";
 
-const Post = (props) => {
+type PropType = {
+    post: PostType,
+    photos: PhotosType ,
+    fullName: string | null,
+    setLike: (id: number, isLiked: boolean, countLike: number) =>void,
+}
+
+const Post: React.FC<PropType>= (props) => {
 
     const toggleClass =  () => {
             let isliked = props.post.isLiked;
@@ -15,7 +23,7 @@ const Post = (props) => {
     return (
         <div className={s.post}>
             <div className={s.author}>
-                <img src={ props.photo || logo } alt="logo" />
+                <img src={ props.photos.small || logo } alt="logo" />
                 <span>{props.fullName}</span>
             </div>
             

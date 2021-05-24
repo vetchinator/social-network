@@ -18,10 +18,12 @@ let rootReducer = combineReducers({
 })
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
 // let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 

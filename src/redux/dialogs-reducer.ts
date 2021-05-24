@@ -1,7 +1,5 @@
+import { InferActionsTypes } from './redux-store';
 import { DialogItemType, MessageItemType } from "../types/types";
-
-const SEND_MESSAGE = "dialog/SEND-MESSAGE";
-const DELETE_MESSAGE = "dialog/DELETE_MESSAGE";
 
 let initialState = {
     dialogs: [
@@ -22,9 +20,9 @@ let initialState = {
 export type InitialStateType = typeof initialState;
 
 //state.dialogsPage
-const dialogsReducer = (state = initialState, action: any): InitialStateType=> {
+const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType=> {
     switch (action.type) {
-        case SEND_MESSAGE: {
+        case 'SN/DIALOG/SEND_MESSAGE': {
             let numberId = state.messages[state.messages.length-1].id;
             let newMessage = {
                 id: (numberId += 1),
@@ -35,7 +33,7 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType=> {
                 messages: [...state.messages, newMessage],
             };
         }
-        case DELETE_MESSAGE: {
+        case 'SN/DIALOG/DELETE_MESSAGE': {
             return { ...state, messages: state.messages.filter(message => message.id !== action.messageId)}
         }
 
@@ -43,17 +41,11 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType=> {
             return state;
     }
 };
+type ActionTypes = InferActionsTypes<typeof actions>;
 
-type SendMessageActionType = {
-    type: typeof SEND_MESSAGE,
-    newMessageText: string
+export const actions = {
+    sendMessage: (newMessageText: string) => ({ type: 'SN/DIALOG/SEND_MESSAGE', newMessageText } as const),
+    deleteMessage: (messageId: number) => ({ type: 'SN/DIALOG/DELETE_MESSAGE', messageId } as const)
 }
-type DeleteMessageActionType = {
-    type: typeof DELETE_MESSAGE,
-    messageId: number
-}
-
-export const sendMessage = (newMessageText: string): SendMessageActionType => ({ type: SEND_MESSAGE, newMessageText });
-export const deleteMessage = (messageId: number): DeleteMessageActionType => ({ type: DELETE_MESSAGE, messageId });
 
 export default dialogsReducer;

@@ -1,8 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { ProfileType } from "../../../../types/types";
 import s from "./../ProfileInfo.module.css";
 
-const ProfileDataForm = (props) => {
+type PropFormType = {
+    profile: ProfileType,
+    serverErrorMessage: string,
+    onSubmit: (data: ProfileType) => void,
+}
+
+const ProfileDataForm: React.FC<PropFormType>= (props) => {
     const {
         register,
         handleSubmit,

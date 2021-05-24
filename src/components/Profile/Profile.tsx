@@ -1,10 +1,22 @@
 import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Preloader from '../common/Preloader/Preloader';
+import { ProfileType } from "../../types/types";
 
-const Profile = (props) => {
+type PropType = {
+    profile: ProfileType | null,
+    isOwner: boolean, 
+    serverErrorMessage: string, 
+    status: string,
+
+    updateUserStatus: (status: string) => void,
+    savePhoto: (file: any) => void,
+    saveProfile: (profile: ProfileType) => Promise<any>,
+}
+
+const Profile: React.FC<PropType> = (props) => {
     if (!props.profile) {
         return <Preloader />;
     }
@@ -19,7 +31,7 @@ const Profile = (props) => {
                 isOwner={props.isOwner}
                 serverErrorMessage={props.serverErrorMessage}
             />
-            <MyPosts setLike={props.setLike} addPost={props.addPost} posts={props.posts} newPostText={props.newPostText} photo={props.profile.photos.small} fullName={props.profile.fullName}  />
+            <MyPostsContainer photos={props.profile.photos} fullName={props.profile.fullName} isOwner={props.isOwner}/>
         </div>
     );
 };
