@@ -3,7 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { follow, unfollow, requestUsers } from "../../redux/users-reducer";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
 import { compose } from "redux";
 import {
     getUsers,
@@ -48,7 +47,7 @@ class UsersAPIContainer extends React.Component<PropType> {
         return (
             <>
                
-               {this.props.isFetching ? <Preloader /> : null}
+               {/* {this.props.isFetching ? <Preloader /> : null} */}
                 <Users
                     users={this.props.users}
                     totalCountUsers={this.props.totalCountUsers}
@@ -58,6 +57,7 @@ class UsersAPIContainer extends React.Component<PropType> {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     followingInProgress={this.props.followingInProgress}
+                    isFetching={this.props.isFetching}
                 />
                 
             </>
