@@ -1,9 +1,10 @@
 export type UserType = {
     id: number,
     name: string,
-    status: string,
+    status: string | null,
     photos: PhotosType,
     followed: boolean,
+    uniqueUrlName: string | null,
 }
 
 export type PhotosType = {

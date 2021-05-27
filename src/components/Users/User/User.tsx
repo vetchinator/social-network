@@ -11,6 +11,8 @@ type PropType = {
     unfollow: (id: number) => void;
 };
 
+
+
 const User: React.FC<PropType> = ({ user, followingInProgress, follow, unfollow }) => {
     return (
         <div className={s.user} key={user.id}>
