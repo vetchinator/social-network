@@ -8,6 +8,8 @@ https://vetchinator.github.io/social-network/
 Email: free@samuraijs.com
 Password: free
 
+![main screen](https://github.com/vetchinator/social-network/blob/master/src/images/main-screen.jpg "main screen")
+
 ### Available Scripts
 
 In the project directory, you can run:
