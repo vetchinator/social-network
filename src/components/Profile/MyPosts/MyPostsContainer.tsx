@@ -1,5 +1,4 @@
-import React from "react";
-import { actions } from "../../../redux/profile-reducer";
+import { actions } from "../../../redux/profile/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 import { RootState } from "../../../redux/redux-store";
@@ -7,8 +6,6 @@ import { PhotosType, PostType } from "../../../types/types";
 
 type MapStateToPropsType = {
     posts: Array<PostType>,
-    newPostText: string,
-    
 }
 
 type MapDispatchToPropsType = {
@@ -26,7 +23,6 @@ type OwnPropsType = {
 const mapStateToProps = (state: RootState): MapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText,
     };
 };
 

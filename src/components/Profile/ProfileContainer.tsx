@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile } from "../../redux/profile-reducer";
+import { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile } from "../../redux/profile/profile-reducer";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { PostType, ProfileType } from "../../types/types";
@@ -12,7 +12,6 @@ type MapStateToPropsType = {
     status: string,
     isAuthenticated: boolean,
     authorisedUserId: number | null,
-    newPostText: string,
     posts: Array<PostType>,
     serverErrorMessage: string
 }
@@ -68,7 +67,6 @@ const mapStateToProps = (state: RootState): MapStateToPropsType => {
         status: state.profilePage.status,
         isAuthenticated: state.auth.isAuthenticated,
         authorisedUserId: state.auth.userId,
-        newPostText: state.profilePage.newPostText,
         posts: state.profilePage.posts,
         serverErrorMessage: state.profilePage.serverErrorMessage
     };
