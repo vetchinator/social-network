@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
-import socialLogo from '../../assets/images/social-logo.png'; 
+import logo from '../../assets/images/logo.png'; 
 
 type PropType = {
     login: string | null,
@@ -16,7 +16,7 @@ const Header: React.FC<PropType>= ({isAuthenticated, login, logout}) => {
                 <NavLink to={"/"}>
                     <img
                         className={s.logo}
-                        src={socialLogo}
+                        src={logo}
                         alt="logo"
                     />
                 </NavLink>
