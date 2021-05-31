@@ -1,4 +1,4 @@
-import { RootState } from './redux-store';
+import { RootState } from '../redux-store';
 import { createSelector } from "reselect";
 
 const getUsersSelector = (state: RootState) => {
