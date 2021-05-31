@@ -8,8 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import UsersPage from "./components/Users/Users";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import UsersPage from "./components/Users/UsersPage";
 import Login from "./components/Login/Login";
 import { compose } from "redux";
 import { connect, Provider } from "react-redux";
@@ -17,9 +16,10 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, { RootState } from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import { Header } from "./components/Header/Header";
 
 let ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
-let DialogContainer = React.lazy(() => import("./components/Dialog/DialogContainer"));
+let DialogContainer = React.lazy(() => import("./components/Dialog/Dialog"));
 
 let SuspensedProfile =  withSuspense(ProfileContainer);
 let SuspensedDialog =  withSuspense(DialogContainer);
@@ -56,7 +56,7 @@ class App extends React.Component<PropType> {
 
         return (
             <div className="container">
-                <HeaderContainer />
+                <Header />
                 <Navbar />
                 <div className="body__wrapper">
                     <Switch>
