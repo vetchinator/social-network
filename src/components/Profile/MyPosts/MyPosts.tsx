@@ -2,14 +2,18 @@ import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { PhotosType, PostType } from "../../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFullName, selectPhotoSmall, selectPosts } from "../../../redux/selectors/profile-selector";
+import { actions } from "../../../redux/profile/profile-reducer";
 
 type FormPropType = {
     addPost: (newPostText: string) => void,
 }
+
 type FormValueType = {
     addPostText: string,
 }
+
 const AddPostForm: React.FC<FormPropType>= (props) => {
     const { register, handleSubmit, reset} = useForm<FormValueType>();
     const onSubmit: SubmitHandler<FormValueType> = (data) => {
@@ -29,17 +33,27 @@ const AddPostForm: React.FC<FormPropType>= (props) => {
 };
 
 type PropType = {
-    posts: Array<PostType>,
-    photos: PhotosType ,
     isOwner: boolean,
-    fullName: string | null,
-    addPost: (newPostText: string) => void,
-    setLike: (id: number, isLiked: boolean, countLike: number) => void
 }
 
-const MyPosts: React.FC<PropType> = props => {
-    let postElements = [...props.posts].reverse().map((p) => (
-        <Post setLike={props.setLike} post={p} key={p.id} photos={props.photos} fullName={props.fullName} />
+export const MyPosts: React.FC<PropType> = props => {
+
+    const photoSmall = useSelector(selectPhotoSmall); 
+    const fullName = useSelector(selectFullName); 
+    const posts = useSelector(selectPosts);
+
+    const dispatch = useDispatch();
+
+    const addPostHandler = (newPostText: string) => {
+        dispatch(actions.addPost(newPostText));
+    }
+
+    const setLikeHandler = (id: number, isLiked: boolean, countLike: number) => {
+        dispatch(actions.setLike(id, isLiked, countLike));
+    }
+
+    let postElements = [...posts].reverse().map((p) => (
+        <Post setLike={setLikeHandler} post={p} key={p.id} photo={photoSmall} fullName={fullName} />
     ));
 
     return (
@@ -48,7 +62,7 @@ const MyPosts: React.FC<PropType> = props => {
             <div className={s.newPost}>
                 {props.isOwner && (
                     <div>
-                        <AddPostForm addPost={props.addPost} />
+                        <AddPostForm addPost={addPostHandler} />
                     </div>
                 )}
             </div>
@@ -56,5 +70,3 @@ const MyPosts: React.FC<PropType> = props => {
         </div>
     );
 };
-
-export default MyPosts;
