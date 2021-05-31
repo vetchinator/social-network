@@ -9,6 +9,7 @@ type PropsType = {
 }
 
 const ProfileStatus: React.FC<PropsType> = (props) => {
+
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
@@ -45,7 +46,7 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
             ) : (
                 <div className={s.statusContainer} onClick={activateEditMode}>
                     <span  className={s.status} >
-                        { status ? status : "changeStatus" }
+                        { status ? status : "status" }
                        {props.isOwner && <span className={s.helpMsg}>Click to Edit</span> } 
                     </span>
                     

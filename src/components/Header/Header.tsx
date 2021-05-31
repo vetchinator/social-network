@@ -2,14 +2,23 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 import logo from '../../assets/images/logo.png'; 
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsAuth, selectAuthorisedLogin } from "../../redux/selectors/auth-selector";
+import { logout } from "../../redux/auth-reducer";
 
-type PropType = {
-    login: string | null,
-    isAuthenticated: boolean,
-    logout: () => void
-}
 
-const Header: React.FC<PropType>= ({isAuthenticated, login, logout}) => {
+export const Header: React.FC= () => {
+
+    const isAuth = useSelector(selectIsAuth);
+    const login = useSelector(selectAuthorisedLogin);
+
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+
+
     return (
         <header className={s.header}>
             <div className={s.header__wrapper}>
@@ -22,8 +31,8 @@ const Header: React.FC<PropType>= ({isAuthenticated, login, logout}) => {
                 </NavLink>
                 
                 <div className={s.blockLogin}>
-                    {isAuthenticated 
-                        ? <div>{login} <button onClick={logout}>LogOut</button></div>
+                    {isAuth 
+                        ? <div>{login} <button onClick={logoutHandler}>LogOut</button></div>
                         : <NavLink to={'/login'}>Login</NavLink>
                     }
                 </div>
@@ -31,5 +40,3 @@ const Header: React.FC<PropType>= ({isAuthenticated, login, logout}) => {
         </header>
     );
 };
-
-export default Header;

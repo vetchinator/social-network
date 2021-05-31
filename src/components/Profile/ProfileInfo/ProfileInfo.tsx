@@ -5,45 +5,61 @@ import logo from "../../../assets/images/user.png";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import { ProfileType } from "../../../types/types";
 import ProfileData from "./profileData/ProfileData";
+import { useDispatch, useSelector } from "react-redux";
+import { savePhoto, saveProfile, updateUserStatus } from "../../../redux/profile/profile-reducer";
+import { getServerErrorMessage, getUserStatus } from "../../../redux/selectors/profile-selector";
 
 type PropType = {
-    profile: ProfileType;
-    isOwner: boolean;
-    status: string;
-    serverErrorMessage: string;
-
-    updateUserStatus: (status: string) => void;
-    savePhoto: (file: File) => void;
-    saveProfile: (profile: ProfileType) => Promise<any>;
+    profile: ProfileType,
+    isOwner: boolean
 };
 
 const ProfileInfo: React.FC<PropType> = (props) => {
+
     let [fileName, setfileName] = useState("Add image");
     let [editMode, setEditMode] = useState(false);
+
+    const status = useSelector(getUserStatus);
+    const serverErrorMessage = useSelector(getServerErrorMessage);
+
+
+    const dispatch = useDispatch();
+
+    const saveProfileUser = (profile: ProfileType) => {
+        dispatch(saveProfile(profile));
+    }  
+    const savePhotoUser = (file: File) => {
+        dispatch(savePhoto(file));
+    }
+    
+    const updateUserStatusHandler = (status: string) => {
+        dispatch(updateUserStatus(status));
+    }
 
     const goToEditMode = () => {
         setEditMode(true);
     };
 
-    const onSubmit = (data: ProfileType) => {
-        props.saveProfile(data).then(() => {
-            setEditMode(false);
-        });
+    const onSubmit = async (data: ProfileType) => {
+        await saveProfileUser(data);
+        setEditMode(false);
     };
 
     let onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
-            props.savePhoto(e.target.files[0]);
+            savePhotoUser(e.target.files[0]);
             setfileName(e.target.files[0].name);
         } else {
             setfileName("Add image");
         }
     };
 
+    const imgSrc: string = (props.profile === null) ? logo : (props.profile.photos.large === null) ? logo : props.profile.photos.large;
+    
     return (
         <div className={s.profileInfo}>
             <div>
-                <img src={props.profile.photos.large || logo} className={s.mainPhoto} alt="avatar" />
+                <img src={ imgSrc } className={s.mainPhoto} alt="avatar" />
             </div>
             {props.isOwner && (
                 <div className={s.uploadFileWrapper}>
@@ -64,14 +80,14 @@ const ProfileInfo: React.FC<PropType> = (props) => {
             )}
             <div>
                 <ProfileStatus
-                    status={props.status}
-                    updateUserStatus={props.updateUserStatus}
+                    status={status}
+                    updateUserStatus={updateUserStatusHandler}
                     isOwner={props.isOwner}
                 />
             </div>
             {editMode ? (
                 <ProfileDataForm
-                    serverErrorMessage={props.serverErrorMessage}
+                    serverErrorMessage={serverErrorMessage}
                     onSubmit={onSubmit}
                     profile={props.profile}
                 />

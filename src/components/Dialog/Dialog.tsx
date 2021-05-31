@@ -3,14 +3,16 @@ import s from "./Dialog.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { DialogItemType, MessageItemType } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDialogs, selectMessages } from "../../redux/selectors/dialogs-selector";
+import { actions } from "../../redux/dialogs-reducer";
 
 type PropFormType = {
-    sendMessage: (newMessage: string) => void
-}
+    sendMessage: (newMessage: string) => void;
+};
 type FormValueType = {
-    addMessage: string,
-}
+    addMessage: string;
+};
 
 const AddMessageForm: React.FC<PropFormType> = (props) => {
     const { register, handleSubmit, reset } = useForm<FormValueType>();
@@ -21,7 +23,7 @@ const AddMessageForm: React.FC<PropFormType> = (props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <textarea name="addMessage"  ref={register}></textarea>
+                <textarea name="addMessage" ref={register}></textarea>
             </div>
             <div>
                 <button type="submit">Send Message</button>
@@ -30,20 +32,19 @@ const AddMessageForm: React.FC<PropFormType> = (props) => {
     );
 };
 
-type PropType = {
-    dialogs: Array<DialogItemType>,
-    messages: Array<MessageItemType>,
-    sendMessage: (newMessage: string) => void
-}
+const Dialog: React.FC = () => {
+    const dialogs = useSelector(selectDialogs);
+    const messages = useSelector(selectMessages);
 
-const Dialog: React.FC<PropType> = (props) => {
-    let dialogElements = props.dialogs.map((d) => (
-        <DialogItem key={d.id} name={d.name} id={d.id} />
-    ));
+    const dispatch = useDispatch();
 
-    let messageElements = props.messages.map((m) => (
-        <Message message={m.message} key={m.id} />
-    ));
+    const sendMessageHandler = (newMessage: string) => {
+        dispatch(actions.sendMessage(newMessage));
+    };
+
+    let dialogElements = dialogs.map((d) => <DialogItem key={d.id} name={d.name} id={d.id} />);
+
+    let messageElements = messages.map((m) => <Message message={m.message} key={m.id} />);
 
     return (
         <div className={s.dialog}>
@@ -51,7 +52,7 @@ const Dialog: React.FC<PropType> = (props) => {
             <div className={s.messages}>
                 {messageElements}
                 <div>
-                    <AddMessageForm sendMessage={props.sendMessage}/>
+                    <AddMessageForm sendMessage={sendMessageHandler} />
                 </div>
             </div>
         </div>
