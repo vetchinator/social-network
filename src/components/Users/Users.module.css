@@ -18,3 +18,7 @@
 .selectedPage {
     font-weight: bold;
 }
+
+.searchForm {
+    margin-top: 15px;
+}
