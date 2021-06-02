@@ -24,6 +24,9 @@ const Navbar: React.FC= (props) => {
                 <li>
                     <NavLink activeClassName={s.activeLink} to="/users">Find Users</NavLink>
                 </li>
+                <li>
+                    <NavLink activeClassName={s.activeLink} to="/chat">Chat</NavLink>
+                </li>
             </ul>
         </nav>
     );

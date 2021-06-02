@@ -47,7 +47,6 @@ const SearchUserForm: React.FC<PropType> = React.memo((props) => {
                             <option value="true">Followed</option>
                             <option value="false">Unfollowed</option>
                         </Field>
-
                         <button type="submit" disabled={props.isSubmitting}>
                             Search
                         </button>

@@ -17,6 +17,7 @@ import { withSuspense } from "./hoc/withSuspense";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { Header } from "./components/Header/Header";
 import { selectIsInitialized } from "./redux/selectors/app-selector";
+import ChatPage from "./Pages/Chat/Chat";
 
 let ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 let DialogContainer = React.lazy(() => import("./components/Dialog/Dialog"));
@@ -70,6 +71,7 @@ const App: React.FC = () => {
                     <Route path="/settings" render={() => <Settings />} />
                     <Route path="/users" render={() => <UsersPage />} />
                     <Route path="/login" render={() => <Login />} />
+                    <Route path="/chat" render={() => <ChatPage />} />
                     <Route path="*" render={() => <ErrorPage />} />
                 </Switch>
             </div>
