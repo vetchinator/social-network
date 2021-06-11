@@ -1,77 +1,95 @@
-import React, { useEffect, useState } from "react";
-
-type ChatMessageType = {
-    message: string,
-    photo: string,
-    userId: number,
-    userName: string
-}
-
-const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sendMessage, startMessageListening, stopMessageListening, ChatMessageType } from "../../redux/chat-reducer";
+import { selectMessages, selectStatusChat } from "../../redux/selectors/chat-selector";
 
 const ChatPage: React.FC = () => {
     return (
-        <Chat/>
+        <Chat />
     )
 }
 
 const Chat: React.FC = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(startMessageListening());
+        return () => {
+            dispatch(stopMessageListening());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
-        <div style={{maxWidth: '800px', margin:'0 auto'}}>
-            <Messages/>
-            <SendMessageForm/>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <Messages />
+            <SendMessageForm />
         </div>
     )
 }
 
 const Messages: React.FC = () => {
-    const [messages, setMessages] = useState<ChatMessageType[]>([]);
+    let messageAnchoreRef = useRef<HTMLDivElement>(null);
+    const [isAutoScroll, setIsAutoScroll] = useState(false);
+    let messages = useSelector(selectMessages);
 
     useEffect(() => {
-        wsChannel.addEventListener('message', (e: MessageEvent) =>{
-            let newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...prevMessages, ...newMessages]);
-        })
-    }, [])
-    
+        if (isAutoScroll) {
+            messageAnchoreRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [messages])
+
+    const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        let target = e.currentTarget;
+        if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+            setIsAutoScroll(true);
+        } else {
+            setIsAutoScroll(false);
+        }
+    }
+
     return (
-        <div>
-            {messages.map((m, idx) => <Message message={m} key={idx}  />)}
+        <div style={{ height: '800px', overflowY: 'scroll' }} onScroll={scrollHandler}>
+            {messages.map((m, idx) => <Message message={m} key={m.id} />)}
+            <div ref={messageAnchoreRef} ></div>
         </div>
     )
 }
 
-const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
+const Message: React.FC<{ message: ChatMessageType }> = React.memo(({ message }) => {
     return (
         <div>
-            <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
-                <img style={{ width: '30px', borderRadius: '50%'}} src={message.photo} alt="avatar"/>
-                <span>{message.userName}</span>
+            <div style={{ textAlign: 'left', paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                <img style={{ width: '30px', borderRadius: '50%',  }} src={message.photo} alt="avatar" />
+                <span style={{paddingLeft: '10px'}}>{message.userName}</span>
             </div>
-            <div>{message.message}</div>
-            <hr/>
+            <div style={{textAlign: 'left', padding: '10px'}}>{message.message}</div>
+            <hr />
         </div>
     );
-};
+})
 
 const SendMessageForm: React.FC = () => {
     const [message, setMessage] = useState('');
+    const dispatch = useDispatch();
+    let status = useSelector(selectStatusChat);
 
-    const sendMessage = () => {
-        if(!message) {
+    const sendMessageHandler = () => {
+        if (!message) {
             return;
         }
-        wsChannel.send(message);
+        dispatch(sendMessage(message));
         setMessage('');
     }
 
     return (
         <div>
             <div>
-                <textarea onChange={(e)=> setMessage(e.currentTarget.value)} value={message}></textarea>
+                <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
             <div>
-                <button onClick={sendMessage}>Send</button>
+                <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
             </div>
         </div>
     );

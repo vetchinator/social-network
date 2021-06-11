@@ -1,5 +1,5 @@
-import { PhotosType } from '../../types/types';
-import { profileAPI } from '../../api/profile-api';
+import { PhotosType } from "../../types/types";
+import { profileAPI } from "../../api/profile-api";
 import { RootState, InferActionsTypes } from "../redux-store";
 import { ThunkAction } from "redux-thunk";
 import { ResultCodeEnum } from "../../api/api";
@@ -129,10 +129,10 @@ export const saveProfile =
         let response = await profileAPI.saveProfile(profile);
 
         if (response.resultCode === ResultCodeEnum.Success) {
-            if (userId !==null) {
+            if (userId !== null) {
                 dispatch(getUserProfile(userId));
             } else {
-                throw new Error("userId can't be null")
+                throw new Error("userId can't be null");
             }
         } else {
             dispatch(actions.setServerError(response.messages[0]));
