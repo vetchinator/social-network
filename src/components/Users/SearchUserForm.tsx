@@ -11,7 +11,6 @@ type FormValuesType = {
     term: string;
     friend: FriendFormType;
 };
-
 type PropType = {
     onFilterChanged: (filter: FilterType) => void;
 };
@@ -40,9 +39,9 @@ const SearchUserForm: React.FC<PropType> = React.memo((props) => {
                 onSubmit={onSubmit}
             >
                 {(props) => (
-                    <Form>
+                    <Form className={s.form}>
                         <Field type="text" name="term" />
-                        <Field as="select" name="friend">
+                        <Field as='select' className={s.select} name="friend">
                             <option value="null">All</option>
                             <option value="true">Followed</option>
                             <option value="false">Unfollowed</option>
