@@ -44,6 +44,7 @@ let newMessageHandlerCreator = (dispatch: DispatchType) => {
     }
     return _newMessageHandler
 }
+
 let _statusChangedHandler: ((status: StatusType) => void) | null = null;
 let statusChangedHandlerCreator = (dispatch: DispatchType) => {
     if (_statusChangedHandler === null) {

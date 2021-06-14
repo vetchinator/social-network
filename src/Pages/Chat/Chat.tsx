@@ -50,7 +50,7 @@ const Messages: React.FC = () => {
     }
 
     return (
-        <div style={{ height: '800px', overflowY: 'scroll' }} onScroll={scrollHandler}>
+        <div style={{ height: '70vh', overflowY: 'scroll' }} onScroll={scrollHandler}>
             {messages.map((m, idx) => <Message message={m} key={m.id} />)}
             <div ref={messageAnchoreRef} ></div>
         </div>
@@ -84,7 +84,7 @@ const SendMessageForm: React.FC = () => {
     }
 
     return (
-        <div>
+        <div style={{marginTop: '10px', marginBottom: '10px'}}>
             <div>
                 <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
