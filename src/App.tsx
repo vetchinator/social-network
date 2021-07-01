@@ -14,7 +14,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
-import ErrorPage from "./components/ErrorPage/ErrorPage";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import { Header } from "./components/Header/Header";
 import { selectIsInitialized } from "./redux/selectors/app-selector";
 import ChatPage from "./Pages/Chat/Chat";
