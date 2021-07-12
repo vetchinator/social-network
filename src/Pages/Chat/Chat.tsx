@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage, startMessageListening, stopMessageListening, ChatMessageType } from "../../redux/chat-reducer";
 import { selectMessages, selectStatusChat } from "../../redux/selectors/chat-selector";
+import user from '../../assets/images/user.png';
 
 const ChatPage: React.FC = () => {
     return (
@@ -16,7 +17,6 @@ const Chat: React.FC = () => {
         return () => {
             dispatch(stopMessageListening());
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -36,8 +36,6 @@ const Messages: React.FC = () => {
         if (isAutoScroll) {
             messageAnchoreRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages])
 
     const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -61,7 +59,7 @@ const Message: React.FC<{ message: ChatMessageType }> = React.memo(({ message })
     return (
         <div>
             <div style={{ textAlign: 'left', paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
-                <img style={{ width: '30px', borderRadius: '50%',  }} src={message.photo} alt="avatar" />
+                <img style={{ width: '30px', borderRadius: '50%',  }} src={message.photo ? message.photo : user } alt="avatar" />
                 <span style={{paddingLeft: '10px'}}>{message.userName}</span>
             </div>
             <div style={{textAlign: 'left', padding: '10px'}}>{message.message}</div>

@@ -28,6 +28,7 @@ const ProfileInfo: React.FC<PropType> = (props) => {
     const saveProfileUser = (profile: ProfileType) => {
         dispatch(saveProfile(profile));
     }  
+    
     const savePhotoUser = (file: File) => {
         dispatch(savePhoto(file));
     }

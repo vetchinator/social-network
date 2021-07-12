@@ -14,15 +14,15 @@ type FormValueType = {
     postText: string,
 }
 
-const AddPostForm: React.FC<FormPropType>= (props) => {
+const AddPostForm: React.FC<FormPropType> = (props) => {
     const { register, handleSubmit, reset} = useForm<FormValueType>();
     const onSubmit: SubmitHandler<FormValueType> = (data) => {
         if(data.postText) {
             props.addPost(data.postText);
             reset();
         }
-        
     };
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
