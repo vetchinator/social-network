@@ -11,19 +11,22 @@ type FormPropType = {
 }
 
 type FormValueType = {
-    addPostText: string,
+    postText: string,
 }
 
 const AddPostForm: React.FC<FormPropType>= (props) => {
     const { register, handleSubmit, reset} = useForm<FormValueType>();
     const onSubmit: SubmitHandler<FormValueType> = (data) => {
-        props.addPost(data.addPostText);
-        reset();
+        if(data.postText) {
+            props.addPost(data.postText);
+            reset();
+        }
+        
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <textarea name="addPostText" ref={register}></textarea>
+                <textarea name="postText" ref={register}></textarea>
             </div>
             <div>
                 <button type="submit">Send post</button>
