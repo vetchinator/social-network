@@ -48,14 +48,18 @@ beforeEach(() => {
                   "large": null
                 },
                 "status": null,
-                "followed": false
+                "followed": false,
               }
         ],
         totalCountUsers: 10,
         pageSize: 21,
         currentPage: 1,
         isFetching: true,
-        followingInProgress: [0, 2]
+        followingInProgress: [0, 2],
+        filter: {
+            term: '',
+            friend:  null,
+        }
     }
 })
 
@@ -64,6 +68,7 @@ test('follow success', () => {
     expect(newState.users[3].followed).toBeTruthy();
     expect(newState.users[2].followed).toBeFalsy();
 })
+
 test('unfollow success', () => {
     let newState = usersReducer(state, actions.toggleFollow(0));
     expect(newState.users[0].followed).toBeFalsy();
@@ -100,24 +105,29 @@ test('set users', () => {
     let newState = usersReducer(state, actions.setUsers(users));
     expect(newState.users).toBe(users);
 })
+
 test('set current page', () => {
     let newState = usersReducer(state, actions.setCurrentPage(10));
     expect(newState.currentPage).toBe(10);
 })
+
 test('set total users count', () => {
     let newState = usersReducer(state, actions.setTotalUsersCount(100));
     expect(newState.totalCountUsers).toBe(100);
 })
+
 test('set is fetching', () => {
     let newState = usersReducer(state, actions.toogleIsFetching(true));
     expect(newState.isFetching).toBe(true);
     newState = usersReducer(state, actions.toogleIsFetching(false));
     expect(newState.isFetching).toBe(false);
 })
+
 test('add number to followingInProgress', () => {
     let newState = usersReducer(state, actions.toogleFollowingProgress(true, 1));
     expect(newState.followingInProgress).toEqual([0, 2, 1]);
 })
+
 test('delete number to followingInProgress', () => {
     let newState = usersReducer(state, actions.toogleFollowingProgress(false, 0));
     expect(newState.followingInProgress).toEqual([2]);
