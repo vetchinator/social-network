@@ -28,23 +28,23 @@ const UsersPage: React.FC = () => {
         friend?: string,
         page?: string
     }
-
+    
     useEffect(() => {
         const parsed = queryString.parse(history.location.search.substr(1)) as SearchType;
-
+        
         let actualPage = currentPage;
         let actualFilter = filter;
 
         if(!!parsed.page) {actualPage = Number(parsed.page)};
         if(!!parsed.term) actualFilter = {...actualFilter, term: parsed.term };
-        if(!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend ==='null' ? null : parsed.friend==='true' ? true : false};
+        if(!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === 'null' ? null : parsed.friend === 'true' ? true : false};
 
         dispatch(requestUsers(actualPage, pageSize, actualFilter));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(() => {
-        const query: SearchType =  {};
+        const query: SearchType = {};
         if(!!filter.term) query.term = filter.term;
         if(filter.friend !== null) query.friend = String(filter.friend);
         if(currentPage !== 1) query.page = String(currentPage);
@@ -52,7 +52,7 @@ const UsersPage: React.FC = () => {
             pathname: '/users',
             search: queryString.stringify(query),
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[filter, currentPage])
 
     const onPageChanged = (pageNumber: number) => {
