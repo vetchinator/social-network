@@ -28,11 +28,8 @@ describe("ProfileStatusWithHook component", () => {
             component = create(<ProfileStatusWithHook status="it's test task" />)
         });
         const root = component.root;
-        expect(()=> {
-            let input = root.findByType("input")
-        }).toThrow();
+        expect(root).not.toContain('input');
     });
-
     test("after creation <span> should contains correct status", () => {
         let component;
         act(()=>{
@@ -46,13 +43,15 @@ describe("ProfileStatusWithHook component", () => {
     // test("input should be displayed in editMode instead of span", () => {
     //     let component;
     //     act(()=>{
-    //         component = create(<ProfileStatusWithHook status="it's test task" />)
+    //         component = create(<ProfileStatusWithHook status="it's test task" isOwner={true} />)
     //     });
     //     const root = component.root;
-    //     let div = root.findByType("span").parent;
+    //     // let div = root.findByType("span").parent;
+    //     const span = root.findByType("span");
+    //     span.click();
+    //     let div = root.findByType(".statusInputBlock");
 
-    //     div.simulate('click');
-   
+    //     div.click();
     //     let input = root.findByType("input");
     //     expect(input.props.value).toBe("it's test task");
     // });
